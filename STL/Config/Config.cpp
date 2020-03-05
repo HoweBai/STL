@@ -5,6 +5,9 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <iterator>
+#include <memory>
+#include <string>
 
 using namespace std;
 
@@ -161,16 +164,124 @@ void TempObjTest()
 void NewHandler()
 {
 	cout << "This is a set_new_handler test" << endl;
-	exit(0);
+	//exit(0);
 }
 
 void NewHandlerTest()
 {
-	std::set_new_handler(0);
-	int size = 1024 * 1024 * 1024;
-	int* i = new int[size];
+	std::set_new_handler(NewHandler);
+	int* i = new int[1024ll *1024ll * 1024ll * 2ll];
 	cout << i << endl;
 	delete[] i;
+}
+
+/************************************************************************/
+/* Unintialized                                                                     */
+/************************************************************************/
+void UninitializedTest()
+{
+	std::vector<int> veca{ 1,2,3,4,5,6,7,8,9 };
+	std::vector<int> vecb;
+
+	//std::copy(veca.begin(), veca.end(), std::back_inserter(vecb));
+	//uninitialized_copy(veca.begin(), veca.end(), vecb);
+	//std::copy(vecb.begin(), vecb.end(), std::ostream_iterator<int>{ std::cout, " "});
+}
+
+/************************************************************************/
+/* private member variable                                                                     */
+/************************************************************************/
+class PrivateMemberVariable1 {
+private:
+	int num;
+public:
+	PrivateMemberVariable1() :num(100) {}
+};
+
+class PrivateMemberVariable {
+private:
+	int num;
+public:
+	explicit PrivateMemberVariable():num(10){}
+	/*PrivateMemberVariable(PrivateMemberVariable& n):num(n.num){
+		cout << "PrivateMemberVariable construct" << endl;
+	}*/
+	PrivateMemberVariable(PrivateMemberVariable& n, PrivateMemberVariable& m) {
+		num = n.num + m.num;
+		cout << "PrivateMemberVariable construct" << endl;
+	}
+	void show(PrivateMemberVariable n){
+		cout << "PrivateMemberVariable show" << n.num << endl;
+	}
+};
+
+
+void PrivateMemberVariableTest()
+{
+	PrivateMemberVariable pmv1,pmv2;
+	PrivateMemberVariable pmv(pmv1,pmv2);
+	pmv.show(pmv1);
+}
+
+/************************************************************************/
+/* auto_ptr test                                                                     */
+/************************************************************************/
+void AutoPtrTest()
+{
+	//auto_ptr<string> ps(new string("Humphrey Bacon"));
+	//cout << *ps << endl;
+	//cout << ps->size() << endl;
+	auto_ptr<char> ps4char(new char[6]{"12345"});
+	cout << *ps4char << endl;
+	//cout << *(ps4char++) << endl;
+	auto_ptr<string> ps = ps4char;
+}
+
+
+/************************************************************************/
+/* private constructor                                                                     */
+/************************************************************************/
+class PrivateConstructor
+{
+	friend class CreatePrivate;
+
+private:
+	PrivateConstructor() { cout << "PrivateConstructor construct" << endl; }
+	PrivateConstructor(const PrivateConstructor&){ cout << "PrivateConstructor copy construct" << endl; }
+	~PrivateConstructor(){ cout << "PrivateConstructor destruct" << endl; }
+};
+
+class CreatePrivate
+{
+public:
+	CreatePrivate() { pc_ = new PrivateConstructor(); }
+	~CreatePrivate() { if (pc_) delete pc_; }
+	PrivateConstructor& operator()() { return *pc_; }
+	void show() { cout << "CreatePrivate show" << endl; }
+private:
+	PrivateConstructor *pc_;
+};
+
+void CreatePrivateTest()
+{
+	CreatePrivate().show();
+	getchar();
+}
+/************************************************************************/
+/* operator ->                                                                     */
+/************************************************************************/
+class OperatorOpe {
+public:
+	explicit OperatorOpe(CreatePrivate* cp) :cp_(cp) {};
+	CreatePrivate* operator->() {	return cp_;	}
+	~OperatorOpe() { if (cp_) delete cp_; }
+private:
+	CreatePrivate* cp_;
+};
+
+void OperatorOpeTest() {
+	OperatorOpe oo(new CreatePrivate());
+	oo->show();
 }
 
 
@@ -185,7 +296,12 @@ int main()
 	//NullTmplArgsTest();
 	//TemplateNullTest();
 	//TempObjTest();
-	NewHandlerTest();
+	//NewHandlerTest();
+	//UninitializedTest();
+	//PrivateMemberVariableTest();
+	//AutoPtrTest();
+	//CreatePrivateTest();
+	OperatorOpeTest();
 	return 0;
 }
 

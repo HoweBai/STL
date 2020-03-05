@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Allocator", "Allocator\Allo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Config", "Config\Config.vcxproj", "{AEA042E4-6715-4124-B540-74BB69E9393F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Traits", "Traits\Traits.vcxproj", "{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{AEA042E4-6715-4124-B540-74BB69E9393F}.Release|x64.Build.0 = Release|x64
 		{AEA042E4-6715-4124-B540-74BB69E9393F}.Release|x86.ActiveCfg = Release|Win32
 		{AEA042E4-6715-4124-B540-74BB69E9393F}.Release|x86.Build.0 = Release|Win32
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Debug|x64.ActiveCfg = Debug|x64
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Debug|x64.Build.0 = Debug|x64
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Debug|x86.ActiveCfg = Debug|Win32
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Debug|x86.Build.0 = Debug|Win32
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Release|x64.ActiveCfg = Release|x64
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Release|x64.Build.0 = Release|x64
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Release|x86.ActiveCfg = Release|Win32
+		{3F0F1D49-DCCB-4255-96A9-7AA7E5DE474B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
