@@ -1,16 +1,28 @@
-﻿// Traits.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
+﻿// Introduction2Algorithms.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
 #include <iostream>
-#include "MyTraits.h"
+#include <string>
+#include "Sort.h"
+using namespace std;
 
 int main()
 {
-	//MyTraitsTest();
-	//std::cout << sizeof(TraitsTemplate<int,int,int,int,int>::my_value_traits) << std::endl;
-	//std::istreambuf_iterator<int> itor;
-	//std::advance(itor, 1);
-	MyTypeTraitsTest();
+	int arr[] = { 1,3,1,4,5,2,0,7,9,4 };
+	InsertSort(arr, 10);
+	for (int i = 0; i < 10; i++)
+	{
+		cout << arr[i] << " ";
+	}
+	cout << endl;
+
+	string strArr[] = { "ccc","123","abc","abcd" };
+	InsertSort(strArr, 4);
+	for (int i = 0; i < 4; i++)
+	{
+		cout << strArr[i] << " ";
+	}
+	cout << endl;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单

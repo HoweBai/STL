@@ -52,5 +52,29 @@ void MyTraitsTest()
 	std::cout << typeid(a).name() << std::endl;
 	MyTraits<A>::my_category_traits c;
 	std::cout << typeid(c).name() << std::endl;
-	std::cout << is_object(a)::value() << std::endl;
+}
+
+
+
+
+class MyTypeTraits
+{
+	int set() { b = new char[12]; }
+	TraitsTemplate<int,int,int,int,int> *a;
+	char* b;
+};
+
+void IsTrueType(std::true_type&)
+{
+	std::cout << "true" << std::endl;
+}
+void IsTrueType(std::false_type&)
+{
+	std::cout << "false" << std::endl;
+}
+
+void MyTypeTraitsTest()
+{
+	MyTypeTraits a;
+	std::cout << std::is_pod<MyTypeTraits>::value << std::endl;
 }
